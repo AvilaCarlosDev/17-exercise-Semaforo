@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-//include images into your bundle
 import "../../styles/index.scss";
-//Creating a traffic light with an extra light
+
+// Creating a traffic light with an extra light
 const Home = () => {
   const [selectedColor, setSelectedColor] = useState("orange");
+
   const [colors, setColors] = useState(["red", "orange", "green"]);
 
   const toggleCycle = () => {
@@ -14,32 +15,56 @@ const Home = () => {
   };
 
   const addPurple = () => {
-    if (!colors.includes("purple")) setColors((prev) => [...prev, "purple"]);
+    if (!colors.includes("purple")) {
+      setColors((prev) => [...prev, "purple"]);
+    }
   };
 
   return (
     <>
       <h2 className="traffic-title">La Traffic Light</h2>
 
-      <div className="traffic-light" role="list">
-        {colors.map((c) => (
+      <div className="traffic-light">
+        <div
+          className={"light red " + (selectedColor === "red" ? "glow" : "")}
+          onClick={() => setSelectedColor("red")}
+        >
+          {/* luz roja */}
+        </div>
+
+        <div
+          className={
+            "light orange " + (selectedColor === "orange" ? "glow" : "")
+          }
+          onClick={() => setSelectedColor("orange")}
+        >
+          {/* luz naranja */}
+        </div>
+
+        <div
+          className={"light green " + (selectedColor === "green" ? "glow" : "")}
+          onClick={() => setSelectedColor("green")}
+        >
+          {/* luz verde */}
+        </div>
+
+        {colors.includes("purple") && (
           <div
-            key={c}
-            role="button"
-            tabIndex={0}
-            onClick={() => setSelectedColor(c)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") setSelectedColor(c);
-            }}
-            className={`light ${c}${selectedColor === c ? " glow" : ""}`}
-          />
-        ))}
+            className={
+              "light purple " + (selectedColor === "purple" ? "glow" : "")
+            }
+            onClick={() => setSelectedColor("purple")}
+          >
+            {/* luz púrpura */}
+          </div>
+        )}
       </div>
 
       <div className="controls">
         <button className="btn btn-primary" onClick={toggleCycle}>
           Toggle cycle
         </button>
+
         <button className="btn btn-secondary" onClick={addPurple}>
           Add purple
         </button>
