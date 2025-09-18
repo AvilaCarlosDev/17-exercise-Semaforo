@@ -1,0 +1,76 @@
+@import "bootstrap/scss/bootstrap.scss";
+
+/* 
+    You can write your own styles here...
+    ...Or you can use the import command to include 
+    other sylesheets into your bundle as well, e.j:
+    import 'relative/path/to/stylesheet.scss';
+*/
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  flex-direction: column; /* apila el título encima del semáforo */
+}
+
+.traffic-title {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.traffic-light {
+  background: yellow; // cambia el fondo a yellow
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin: 0;
+}
+.controls {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.light {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: black;
+  cursor: pointer;
+  outline: none;
+  transition: box-shadow 180ms ease, transform 120ms ease;
+}
+
+/* define una variable --glow-color en cada color para usarla en la sombra */
+.red {
+  background-color: red;
+  --glow-color: rgba(255, 0, 0, 0.55);
+}
+.orange {
+  background-color: orange;
+  --glow-color: rgba(255, 165, 0, 0.55);
+}
+.green {
+  background-color: green;
+  --glow-color: rgba(0, 128, 0, 0.55);
+}
+.purple {
+  background-color: purple;
+  --glow-color: rgba(128, 0, 128, 0.55);
+}
+
+/* glow base: blanco muy brillante + color especifico */
+.light.glow {
+  box-shadow: 0 0 30px 14px rgba(255, 255, 255, 0.88),
+    /* capa blanca brillante */ 0 0 22px 10px var(--glow-color); /* capa del color */
+  transform: translateY(-3px);
+}

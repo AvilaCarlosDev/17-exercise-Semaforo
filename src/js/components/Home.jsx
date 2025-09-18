@@ -1,28 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 
 //include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
+import "../../styles/index.scss";
+//Creating a traffic light with an extra light
 const Home = () => {
-	return (
-		<div className="text-center">
-            
+  const [selectedColor, setSelectedColor] = useState("orange");
+  const [colors, setColors] = useState(["red", "orange", "green"]);
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+  const toggleCycle = () => {
+    const idx = colors.indexOf(selectedColor);
+    const next = colors[(idx + 1) % colors.length];
+    setSelectedColor(next);
+  };
+
+  const addPurple = () => {
+    if (!colors.includes("purple")) setColors((prev) => [...prev, "purple"]);
+  };
+
+  return (
+    <>
+      <h2 className="traffic-title">La Traffic Light</h2>
+
+      <div className="traffic-light" role="list">
+        {colors.map((c) => (
+          <div
+            key={c}
+            role="button"
+            tabIndex={0}
+            onClick={() => setSelectedColor(c)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") setSelectedColor(c);
+            }}
+            className={`light ${c}${selectedColor === c ? " glow" : ""}`}
+          />
+        ))}
+      </div>
+
+      <div className="controls">
+        <button className="btn btn-primary" onClick={toggleCycle}>
+          Toggle cycle
+        </button>
+        <button className="btn btn-secondary" onClick={addPurple}>
+          Add purple
+        </button>
+      </div>
+    </>
+  );
 };
 
 export default Home;
